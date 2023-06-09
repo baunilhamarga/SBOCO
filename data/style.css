@@ -45,11 +45,6 @@ body {
   font-size: 1.2rem;
 }
 
-.container {
-  width: 80%;
-  margin: 0 auto;
-}
-
 .cube-content{
   width: 100%;
   background-color: white;
