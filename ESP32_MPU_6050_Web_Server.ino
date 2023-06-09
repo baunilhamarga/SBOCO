@@ -208,6 +208,10 @@ void setup() {
     request->send(200, "text/plain", "OK");
   });
 
+  server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", getTemperature().c_str());
+  });
+
   // Handle Web Server Events
   events.onConnect([](AsyncEventSourceClient *client){
     if(client->lastId()){
