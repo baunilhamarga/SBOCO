@@ -193,6 +193,8 @@ void setup() {
     request->send(200, "text/plain", "OK");
   });
 
+
+
   server.on("/resetX", HTTP_GET, [](AsyncWebServerRequest *request){
     gyroX=0;
     request->send(200, "text/plain", "OK");
@@ -207,6 +209,12 @@ void setup() {
     gyroZ=0;
     request->send(200, "text/plain", "OK");
   });
+
+  server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", getTemperature().c_str());
+  });
+
+  server.on("/")
 
   // Handle Web Server Events
   events.onConnect([](AsyncEventSourceClient *client){

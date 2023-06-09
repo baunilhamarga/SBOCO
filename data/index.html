@@ -14,10 +14,12 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/107/three.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
 </head>
 <body>
   <div class="topnav">
-    <h1>&#129354;SBOCO - Smart Boxing Companion (By team HAS)&#129354;</h1>
+    <h1>&#129354;SBOCO - Smart Boxxxing Companion (By team HAS)&#129354;</h1>
   </div>
   <div class="content">
     <div class="cards">
@@ -32,7 +34,6 @@
         <p><span class="reading">X: <span id="accX"></span> m/s<sup>2</sup></span></p>
         <p><span class="reading">Y: <span id="accY"></span> m/s<sup>2</sup></span></p>
         <p><span class="reading">Z: <span id="accZ"></span> m/s<sup>2</sup></span></p>
-<!--        <p><span class="reading">Contador de socos: <span id="punchcount"></span> socos</span></p>-->
       </div>
       <div class="card">
         <p class="card-title">Temperatura</p>
@@ -43,17 +44,142 @@
         <button id="resetY" onclick="resetPosition(this)">Y</button>
         <button id="resetZ" onclick="resetPosition(this)">Z</button>
       </div>
+      <div id="chart-temperature" class="container"></div>
       <div class="card">
         <p class="card-title">Estatisticas</p>
         <p><span class="reading">Contador de socos: <span id="punchcount"></span> socos</span></p>
         <p><span class="reading">Frequencia de socos bons: <span id="punchratio"></span>% socos bons</span></p>
       </div>
-      
     </div>
     <div class="cube-content">
       <div id="3Dcube"></div>
     </div>
   </div>
 <script src="script.js"></script>
+<script>
+  var chartT = new Highcharts.Chart({
+  chart:{ renderTo : 'chart-temperature' },
+  title: { text: 'MPU6050' },
+  series: [{
+    showInLegend: false,
+    data: []
+  }],
+  plotOptions: {
+    line: { animation: false,
+      dataLabels: { enabled: true }
+    },
+    series: { color: '#059e8a' }
+  },
+  xAxis: { type: 'datetime',
+    title: { text : 'Tempo'},
+    dateTimeLabelFormats: { second: '%H:%M:%S' },
+  },
+  yAxis: {
+    min: 0,
+    max: 40,
+    title: { text: 'Temperatura' },
+    //title: { text: 'Temperature (Fahrenheit)' }
+  },
+  credits: { enabled: false }
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var dataAtual = new Date();
+      dataAtual.setHours(dataAtual.getHours() - 3);
+      var x = dataAtual.getTime(),
+          y = parseFloat(this.responseText);
+      //console.log(this.responseText);
+      if(chartT.series[0].data.length > 40) {
+        chartT.series[0].addPoint([x, y], true, true, true);
+      } else {
+        chartT.series[0].addPoint([x, y], true, false, true);
+      }
+    }
+  };
+  xhttp.open("GET", "/temperature", true);
+  xhttp.send();
+}, 5000 ) ;
+
+/*var chartH = new Highcharts.Chart({
+  chart:{ renderTo:'chart-humidity' },
+  title: { text: 'BME280 Humidity' },
+  series: [{
+    showInLegend: false,
+    data: []
+  }],
+  plotOptions: {
+    line: { animation: false,
+      dataLabels: { enabled: true }
+    }
+  },
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { second: '%H:%M:%S' }
+  },
+  yAxis: {
+    title: { text: 'Humidity (%)' }
+  },
+  credits: { enabled: false }
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var x = (new Date()).getTime(),
+          y = parseFloat(this.responseText);
+      //console.log(this.responseText);
+      if(chartH.series[0].data.length > 40) {
+        chartH.series[0].addPoint([x, y], true, true, true);
+      } else {
+        chartH.series[0].addPoint([x, y], true, false, true);
+      }
+    }
+  };
+  xhttp.open("GET", "/humidity", true);
+  xhttp.send();
+}, 30000 ) ;
+
+var chartP = new Highcharts.Chart({
+  chart:{ renderTo:'chart-pressure' },
+  title: { text: 'BME280 Pressure' },
+  series: [{
+    showInLegend: false,
+    data: []
+  }],
+  plotOptions: {
+    line: { animation: false,
+      dataLabels: { enabled: true }
+    },
+    series: { color: '#18009c' }
+  },
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { second: '%H:%M:%S' }
+  },
+  yAxis: {
+    title: { text: 'Pressure (hPa)' }
+  },
+  credits: { enabled: false }
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var x = (new Date()).getTime(),
+          y = parseFloat(this.responseText);
+      //console.log(this.responseText);
+      if(chartP.series[0].data.length > 40) {
+        chartP.series[0].addPoint([x, y], true, true, true);
+      } else {
+        chartP.series[0].addPoint([x, y], true, false, true);
+      }
+    }
+  };
+  xhttp.open("GET", "/pressure", true);
+  xhttp.send();
+}, 30000 ) ;*/
+</script>
 </body>
 </html>
