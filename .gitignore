@@ -1,0 +1,4 @@
+.vscode
+*.Identifier
+*.temp
+*.log
