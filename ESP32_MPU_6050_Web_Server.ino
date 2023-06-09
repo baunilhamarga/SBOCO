@@ -19,6 +19,9 @@
 #include "SPIFFS.h"
 
 // Replace with your network credentials
+//const char* ssid = "iPhone";
+//const char* password = "123456789";
+
 const char* ssid = "AndroidAPB4F4";
 const char* password = "bnzl9397";
 
@@ -45,7 +48,7 @@ unsigned long accelerometerDelay = 200;
 // statistcs variables
 int strongpunchcount = 0;
 int weakpunchcount = 0;
-int punchcount = 1;
+int punchcount = 0;
 long tim1 = 0;
 
 // Create a sensor object
@@ -167,8 +170,11 @@ String stats(){
     punchcount=strongpunchcount+weakpunchcount;
     delay(350);
   }
-  readings["punchcount"] = String(punchcount-1);
-  readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
+  readings["punchcount"] = String(punchcount);
+  if (punchcount)
+    readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
+  else
+    readings["punchratio"] = String(0);
   String statString = JSON.stringify (readings);
   return statString;
 }
