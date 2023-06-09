@@ -44,6 +44,12 @@ body {
 .reading {
   font-size: 1.2rem;
 }
+
+.container {
+  position: absolute;
+  width: 80%;
+}
+
 .cube-content{
   width: 100%;
   background-color: white;
