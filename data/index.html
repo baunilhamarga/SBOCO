@@ -68,7 +68,7 @@
   },
   xAxis: { type: 'datetime',
     title: { text : 'Tempo'},
-    dateTimeLabelFormats: { second: '%H - 3:%M:%S' },
+    dateTimeLabelFormats: { second: '%H:%M:%S' },
   },
   yAxis: {
     title: { text: 'Temperatura' }
@@ -80,7 +80,9 @@ setInterval(function ( ) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var x = (new Date()).getTime(),
+      var dataAtual = new Date();
+      dataAtual.setHours(dataAtual.getHours() - 3);
+      var x = dataAtual.getTime(),
           y = parseFloat(this.responseText);
       //console.log(this.responseText);
       if(chartT.series[0].data.length > 40) {
