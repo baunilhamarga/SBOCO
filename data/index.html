@@ -68,12 +68,14 @@
   }],
   plotOptions: {
     line: { animation: false,
-      formatter: function() {
-          // Exibir o rótulo de dados apenas se o número de pontos for menor ou igual a 40
-          if (this.series.data.length <= 10) {
+      dataLabels: {
+        enabled: true,
+        formatter: function() {
+          // Exibir o rótulo de dados apenas para o último ponto na série de dados
+          if (this.point === this.series.data[this.series.data.length - 1]) {
             return this.y;
           } else {
-            return null; // Ocultar o rótulo de dados
+            return null; // Ocultar o rótulo de dados para os outros pontos
           }
         }
     },
