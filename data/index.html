@@ -50,13 +50,14 @@
         <p><span class="reading">Contador de socos: <span id="punchcount"></span> socos</span></p>
         <p><span class="reading">Frequencia de socos bons: <span id="punchratio"></span>%</span></p>
       </div>
+      <div id="chart-temperature" class="container"></div>
     </div>
 
     <div class="cube-content">
       <div id="3Dcube"></div>
     </div>
   </div>
-  <div id="chart-temperature" class="container"></div>
+  
 <script src="script.js"></script>
 <script>
   var chartT = new Highcharts.Chart({
@@ -68,16 +69,7 @@
   }],
   plotOptions: {
     line: { animation: false,
-      dataLabels: {
-        enabled: true,
-        formatter: function() {
-          // Exibir o rótulo de dados apenas para o último ponto na série de dados
-          if (this.point === this.series.data[this.series.data.length - 1]) {
-            return this.y;
-          } else {
-            return null; // Ocultar o rótulo de dados para os outros pontos
-          }
-        }
+      dataLabels: { enabled: false }
     },
     series: { color: '#059e8a' }
   },
