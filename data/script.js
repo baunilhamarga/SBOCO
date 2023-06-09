@@ -102,7 +102,13 @@ if (!!window.EventSource) {
     document.getElementById("accX").innerHTML = obj.accX;
     document.getElementById("accY").innerHTML = obj.accY;
     document.getElementById("accZ").innerHTML = obj.accZ;
-    document.getElementById("strongpunchcount").innerHTML = obj.strongpunchcount;
+  }, false);
+
+  source.addEventListener('estatisticas', function(e) {
+    console.log("estatisticas", e.data);
+    var obj = JSON.parse(e.data);
+    document.getElementById("punchcount").innerHTML = obj.punchcount;
+    document.getElementById("punchratio").innerHTML = obj.punchratio;
   }, false);
 }
 
