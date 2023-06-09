@@ -60,7 +60,7 @@ float temperature;
 //Gyroscope sensor deviation
 float gyroXerror = 0.07;
 float gyroYerror = 0.03;
-float gyroZerror = 0.01;
+float gyroZerror = 0.05;
 
 // Init MPU6050
 void initMPU(){
@@ -165,7 +165,7 @@ String stats(){
     }
     tim1=micros();
     punchcount=strongpunchcount+weakpunchcount;
-    delay(300);
+    delay(350);
   }
   readings["punchcount"] = String(punchcount);
   readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
@@ -193,8 +193,6 @@ void setup() {
     request->send(200, "text/plain", "OK");
   });
 
-
-
   server.on("/resetX", HTTP_GET, [](AsyncWebServerRequest *request){
     gyroX=0;
     request->send(200, "text/plain", "OK");
@@ -209,12 +207,6 @@ void setup() {
     gyroZ=0;
     request->send(200, "text/plain", "OK");
   });
-
-  server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", getTemperature().c_str());
-  });
-
-  server.on("/")
 
   // Handle Web Server Events
   events.onConnect([](AsyncEventSourceClient *client){
