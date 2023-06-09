@@ -197,10 +197,6 @@ void setup() {
     request->send(200, "text/plain", "OK");
   });
 
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/index.html");  
-  });
-
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", getTemperature().c_str());
   });
