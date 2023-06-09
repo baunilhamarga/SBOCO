@@ -167,7 +167,7 @@ String stats(){
     punchcount=strongpunchcount+weakpunchcount;
     delay(350);
   }
-  readings["punchcount"] = String(punchcount);
+  readings["punchcount"] = String(punchcount-1);
   readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
   String statString = JSON.stringify (readings);
   return statString;
