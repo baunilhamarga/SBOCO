@@ -46,8 +46,7 @@ body {
 }
 
 .container {
-  position: absolute;
-  width: 80%;
+  width: 100%;
 }
 
 .cube-content{
