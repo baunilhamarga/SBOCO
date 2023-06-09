@@ -40,6 +40,11 @@ body {
   display: grid; grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
+.container {
+  width: 50%;
+}
+
 .reading {
   font-size: 1.2rem;
 }
