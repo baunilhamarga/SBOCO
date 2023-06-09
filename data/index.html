@@ -24,28 +24,32 @@
   <div class="content">
     <div class="cards">
       <div class="card">
-        <p class="card-title">GYROSCOPE</p>
+        <p class="card-title">Giroscopio</p>
         <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
         <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
         <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
       </div>
       <div class="card">
-        <p class="card-title">ACCELEROMETER</p>
-        <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
-        <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
-        <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
-        <p><span class="reading">Contador de socos: <span id="strongpunchcount"></span> socos</span></p>
+        <p class="card-title">Acelerometro</p>
+        <p><span class="reading">X: <span id="accX"></span> m/s<sup>2</sup></span></p>
+        <p><span class="reading">Y: <span id="accY"></span> m/s<sup>2</sup></span></p>
+        <p><span class="reading">Z: <span id="accZ"></span> m/s<sup>2</sup></span></p>
       </div>
       <div class="card">
-        <p class="card-title">TEMPERATURE</p>
+        <p class="card-title">Temperatura</p>
         <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
-        <p class="card-title">3D ANIMATION</p>
-        <button id="reset" onclick="resetPosition(this)">RESET POSITION</button>
+        <p class="card-title">Animacao 3D</p>
+        <button id="reset" onclick="resetPosition(this)">RESETA POSICAO</button>
         <button id="resetX" onclick="resetPosition(this)">X</button>
         <button id="resetY" onclick="resetPosition(this)">Y</button>
         <button id="resetZ" onclick="resetPosition(this)">Z</button>
       </div>
       <div id="chart-temperature" class="container"></div>
+      <div class="card">
+        <p class="card-title">Estatisticas</p>
+        <p><span class="reading">Contador de socos: <span id="punchcount"></span> socos</span></p>
+        <p><span class="reading">Frequencia de socos bons: <span id="punchratio"></span>% socos bons</span></p>
+      </div>
     </div>
     <div class="cube-content">
       <div id="3Dcube"></div>

@@ -22,6 +22,9 @@
 const char* ssid = "AndroidAPB4F4";
 const char* password = "bnzl9397";
 
+//const char* ssid = "BEDS Butantã";
+//const char* password = "";
+
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
 
@@ -38,9 +41,12 @@ unsigned long lastTimeAcc = 0;
 unsigned long gyroDelay = 10;
 unsigned long temperatureDelay = 1000;
 unsigned long accelerometerDelay = 200;
-int strongpunchcount=0;
-int weakpunchcount=0;
-long tim1=0;
+
+// statistcs variables
+int strongpunchcount = 0;
+int weakpunchcount = 0;
+int punchcount = 1;
+long tim1 = 0;
 
 // Create a sensor object
 Adafruit_MPU6050 mpu;
@@ -122,8 +128,17 @@ String getAccReadings() {
   readings["accX"] = String(accX);
   readings["accY"] = String(accY);
   readings["accZ"] = String(accZ);
-  readings["strongpunchcount"] = String(strongpunchcount);
   String accString = JSON.stringify (readings);
+  return accString;
+}
+
+String getTemperature(){
+  mpu.getEvent(&a, &g, &temp);
+  temperature = temp.temperature;
+  return String(temperature);
+}
+
+String stats(){
   int mod=sqrt(accX*accX+accY*accY+accZ*accZ);
   if (mod>14){
     if (mod>19){
@@ -149,15 +164,13 @@ String getAccReadings() {
       Serial.println("socos/segundo");
     }
     tim1=micros();
+    punchcount=strongpunchcount+weakpunchcount;
+    delay(300);
   }
-  delay(500);
-  return accString;
-}
-
-String getTemperature(){
-  mpu.getEvent(&a, &g, &temp);
-  temperature = temp.temperature;
-  return String(temperature);
+  readings["punchcount"] = String(punchcount);
+  readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
+  String statString = JSON.stringify (readings);
+  return statString;
 }
 
 void setup() {
@@ -226,6 +239,7 @@ void loop() {
   if ((millis() - lastTimeAcc) > accelerometerDelay) {
     // Send Events to the Web Server with the Sensor Readings
     events.send(getAccReadings().c_str(),"accelerometer_readings",millis());
+    events.send(stats().c_str(),"estatisticas",millis());
     lastTimeAcc = millis();
   }
   if ((millis() - lastTimeTemperature) > temperatureDelay) {
