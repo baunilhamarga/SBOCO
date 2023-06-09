@@ -68,10 +68,14 @@
   }],
   plotOptions: {
     line: { animation: false,
-      dataLabels: {
-        enabled: true,
-        step: 5,
-      }
+      formatter: function() {
+          // Exibir o rótulo de dados apenas se o número de pontos for menor ou igual a 40
+          if (this.series.data.length <= 10) {
+            return this.y;
+          } else {
+            return null; // Ocultar o rótulo de dados
+          }
+        }
     },
     series: { color: '#059e8a' }
   },
