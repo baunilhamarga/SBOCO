@@ -110,6 +110,12 @@ if (!!window.EventSource) {
     document.getElementById("punchcount").innerHTML = obj.punchcount;
     document.getElementById("punchratio").innerHTML = obj.punchratio;
   }, false);
+
+  source.addEventListener('frequenciacardiaca', function(e) {
+    console.log("frequenciacardiaca", e.data);
+    var obj = JSON.parse(e.data);
+    document.getElementById("freqbpm").innerHTML = obj.freqbpm;
+  }, false);
 }
 
 function resetPosition(element){
