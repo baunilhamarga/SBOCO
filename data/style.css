@@ -23,10 +23,9 @@ body {
   color: #FFD43B;
   font-size: 1rem;
 }
-.content {
-  padding: 20px;
-}
+
 .card {
+  padding: 20px;
   background-color: white;
   box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
 }
@@ -40,9 +39,11 @@ body {
   display: grid; grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
 .reading {
   font-size: 1.2rem;
 }
+
 .cube-content{
   width: 100%;
   background-color: white;

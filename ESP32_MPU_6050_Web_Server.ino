@@ -19,6 +19,9 @@
 #include "SPIFFS.h"
 
 // Replace with your network credentials
+//const char* ssid = "iPhone";
+//const char* password = "123456789";
+
 const char* ssid = "AndroidAPB4F4";
 const char* password = "bnzl9397";
 
@@ -45,7 +48,7 @@ unsigned long accelerometerDelay = 200;
 // statistcs variables
 int strongpunchcount = 0;
 int weakpunchcount = 0;
-int punchcount = 1;
+int punchcount = 0;
 long tim1 = 0;
 
 // Create a sensor object
@@ -60,7 +63,7 @@ float temperature;
 //Gyroscope sensor deviation
 float gyroXerror = 0.07;
 float gyroYerror = 0.03;
-float gyroZerror = 0.01;
+float gyroZerror = 0.05;
 
 // Init MPU6050
 void initMPU(){
@@ -165,10 +168,13 @@ String stats(){
     }
     tim1=micros();
     punchcount=strongpunchcount+weakpunchcount;
-    delay(300);
+    delay(350);
   }
   readings["punchcount"] = String(punchcount);
-  readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
+  if (punchcount)
+    readings["punchratio"] = String(100*(float)strongpunchcount/punchcount);
+  else
+    readings["punchratio"] = String(0);
   String statString = JSON.stringify (readings);
   return statString;
 }
@@ -206,6 +212,10 @@ void setup() {
   server.on("/resetZ", HTTP_GET, [](AsyncWebServerRequest *request){
     gyroZ=0;
     request->send(200, "text/plain", "OK");
+  });
+
+  server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", getTemperature().c_str());
   });
 
   // Handle Web Server Events
