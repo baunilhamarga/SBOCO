@@ -212,6 +212,11 @@ void setup() {
     request->send_P(200, "text/plain", getTemperature().c_str());
   });
 
+  server.on("/socos", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", String(punchcount-1).c_str());
+  });
+
+
   // Handle Web Server Events
   events.onConnect([](AsyncEventSourceClient *client){
     if(client->lastId()){
