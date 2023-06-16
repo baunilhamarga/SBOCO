@@ -55,6 +55,7 @@
         <p><span class="reading">Voce esta com: <span id="freqbpm"></span>bpm</span></p>
       </div>
       <div id="chart-temperature" class="container"></div>
+      <div id="chart-punch" class = "container"></div>
     </div>
 
     <div class="cube-content">
@@ -109,9 +110,9 @@ setInterval(function ( ) {
   xhttp.send();
 }, 2000 ) ;
 
-/*var chartH = new Highcharts.Chart({
-  chart:{ renderTo:'chart-humidity' },
-  title: { text: 'BME280 Humidity' },
+var chartH = new Highcharts.Chart({
+  chart:{ renderTo:'chart-punch' },
+  title: { text: 'Socos' },
   series: [{
     showInLegend: false,
     data: []
@@ -123,10 +124,11 @@ setInterval(function ( ) {
   },
   xAxis: {
     type: 'datetime',
+    title: { text : 'Tempo'},
     dateTimeLabelFormats: { second: '%H:%M:%S' }
   },
   yAxis: {
-    title: { text: 'Humidity (%)' }
+    title: { text: 'Socos' }
   },
   credits: { enabled: false }
 });
@@ -144,10 +146,11 @@ setInterval(function ( ) {
       }
     }
   };
-  xhttp.open("GET", "/humidity", true);
+  xhttp.open("GET", "/socos", true);
   xhttp.send();
-}, 30000 ) ;
+}, 2000 ) ;
 
+/*
 var chartP = new Highcharts.Chart({
   chart:{ renderTo:'chart-pressure' },
   title: { text: 'BME280 Pressure' },
