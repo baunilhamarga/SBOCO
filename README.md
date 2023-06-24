@@ -7,4 +7,3 @@ O melhor amigo do boxeador.
 - Frequência de socos
 - Rotação de pulso
 - Aceleração do braço
-- Batimentos cardíacos
