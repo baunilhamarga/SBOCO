@@ -8,8 +8,8 @@
 #include "SPIFFS.h"
 
 // Replace with your network credentials
-//const char* ssid = "iPhone";
-//const char* password = "123456789";
+const char* ssid = "iPhone";
+const char* password = "123456789";
 
 //const char* ssid = "AndroidAPB4F4";
 //const char* password = "bnzl9397";
@@ -17,8 +17,8 @@
 //const char* ssid = "BEDS Butantã";
 //const char* password = "";
 
-const char* ssid = "Asaffe_moto g9";
-const char* password = "soulfire";
+//const char* ssid = "Asaffe_moto g9";
+//const char* password = "soulfire";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -211,7 +211,7 @@ void setup() {
   });
 
    server.on("/socos", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain",stats().c_str());
+    request->send_P(200, "text/plain",String(100*(float)strongpunchcount/punchcount).c_str());
   });
 
   // Handle Web Server Events

@@ -100,23 +100,23 @@ setInterval(function ( ) {
 
 var chartH = new Highcharts.Chart({
   chart:{ renderTo:'chart-punch' },
-  title: { text: 'Socos' },
+  title: { text: 'Freuencia de Socos Bons' },
   series: [{
     showInLegend: false,
     data: []
   }],
   plotOptions: {
     line: { animation: false,
-      dataLabels: { enabled: true }
+      dataLabels: { enabled: false }
     }
   },
   xAxis: {
     type: 'datetime',
-    title: { text : 'Tempo'}
-    dateTimeLabelFormats: { second: '%H:%M:%S' }
+    title: { text : 'Tempo'},
+    dateTimeLabelFormats: { second: '%H:%M:%S' },
   },
   yAxis: {
-    title: { text: 'Socos' }
+    title: { text: 'Frequencia (%)' },
   },
   credits: { enabled: false }
 });
@@ -124,6 +124,8 @@ setInterval(function ( ) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+      var dataAtual = new Date();
+      dataAtual.setHours(dataAtual.getHours() - 3);
       var x = (new Date()).getTime(),
           y = parseFloat(this.responseText);
       //console.log(this.responseText);
