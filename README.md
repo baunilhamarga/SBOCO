@@ -5,5 +5,8 @@ Os dados podem ser vistos em tempo real em qualquer dispositivo com acesso à in
 O melhor amigo do boxeador.
 ## Recursos:
 - Frequência de socos
-- Rotação de pulso
-- Aceleração do braço
+- Rotação de pulso em 3 eixos
+- Gráfico de Temperatura Ambiente
+- Aceleração do braço em 3 eixos
+- Modelo 3D de posição
+- Gráfico de frequência de socos bons
