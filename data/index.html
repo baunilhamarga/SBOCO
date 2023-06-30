@@ -1,11 +1,3 @@
-<!--
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-mpu-6050-web-server/
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
-  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-
 <!DOCTYPE HTML><html>
 <head>
   <title>ESP Web Server</title>
@@ -51,6 +43,7 @@
         <p><span class="reading">Frequencia de socos bons: <span id="punchratio"></span>%</span></p>
       </div>
       <div id="chart-temperature" class="container"></div>
+      <div id="chart-punch" class="container"></div>
     </div>
 
     <div class="cube-content">
@@ -105,9 +98,9 @@ setInterval(function ( ) {
   xhttp.send();
 }, 2000 ) ;
 
-/*var chartH = new Highcharts.Chart({
-  chart:{ renderTo:'chart-humidity' },
-  title: { text: 'BME280 Humidity' },
+var chartH = new Highcharts.Chart({
+  chart:{ renderTo:'chart-punch' },
+  title: { text: 'Socos' },
   series: [{
     showInLegend: false,
     data: []
@@ -119,10 +112,11 @@ setInterval(function ( ) {
   },
   xAxis: {
     type: 'datetime',
+    title: { text : 'Tempo'}
     dateTimeLabelFormats: { second: '%H:%M:%S' }
   },
   yAxis: {
-    title: { text: 'Humidity (%)' }
+    title: { text: 'Socos' }
   },
   credits: { enabled: false }
 });
@@ -140,10 +134,10 @@ setInterval(function ( ) {
       }
     }
   };
-  xhttp.open("GET", "/humidity", true);
+  xhttp.open("GET", "/socos", true);
   xhttp.send();
-}, 30000 ) ;
-
+}, 2000 ) ;
+/*
 var chartP = new Highcharts.Chart({
   chart:{ renderTo:'chart-pressure' },
   title: { text: 'BME280 Pressure' },
