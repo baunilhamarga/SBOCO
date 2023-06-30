@@ -1,14 +1,3 @@
-/*********
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-mpu-6050-web-server/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-*********/
-
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
@@ -22,11 +11,14 @@
 //const char* ssid = "iPhone";
 //const char* password = "123456789";
 
-const char* ssid = "AndroidAPB4F4";
-const char* password = "bnzl9397";
+//const char* ssid = "AndroidAPB4F4";
+//const char* password = "bnzl9397";
 
 //const char* ssid = "BEDS Butantã";
 //const char* password = "";
+
+const char* ssid = "Asaffe_moto g9";
+const char* password = "soulfire";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
